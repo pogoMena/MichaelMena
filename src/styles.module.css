@@ -19,17 +19,28 @@
   align-items: center;
   font-size: 1.25rem;
   height: 10rem;
-  width: 25%;
+  width: 45%;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.projectcard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  height: 10rem;
+  width: 20%;
   text-align: center;
   border-radius: 10px;
 }
 
 .parallax {
-  margin-right: 15%;
+  margin-right: 10%;
 }
 
 .sticky {
-  margin-left: 15%;
+  margin-left: 10%;
   background-color: #ff6d6d;
 }
 
