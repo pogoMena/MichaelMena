@@ -5,6 +5,7 @@ import { Person } from './components/Person';
 import { HairColor } from './Enums';
 import Home from './pages/Home';
 import {Game, dataLoader} from './pages/Game';
+import {Draw} from './pages/Draw'
 
 interface AppContextInterface {
     name: string;
@@ -31,6 +32,7 @@ const App: FC = () => {
             <div>
                 <Link to="/">Home</Link>
                 <Link to="/game">Game</Link>
+                    <Link to="/draw">Draw</Link>
             </div>
 
             <div>
@@ -45,6 +47,7 @@ const App: FC = () => {
             <Route path="/" element={<Root />}>
                 <Route index element={<Home />} />
                 <Route path="/game" element={<Game />} loader={dataLoader}/>
+                <Route path="/draw" element={<Draw />} />
             </Route>
 
         )
