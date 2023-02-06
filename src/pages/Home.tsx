@@ -63,11 +63,12 @@ export default function Home(props: IAppProps) {
                 <ParallaxLayer offset={1.2} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end', zIndex: 1 }} >
                     <div className={`${styles.card} ${styles.parallax} ${styles.blue}`}>
                         <div className="row">
-                        <h1><a href='https://visionary-licorice-a0bf3c.netlify.app'>MallBuddy Pro</a>
-                        </h1>
+                            <h1>
+                                <a href='https://visionary-licorice-a0bf3c.netlify.app'>MallBuddy Pro</a>
+                            </h1>
                         </div>
                         <div className='row'>
-                            <img src={MallBuddyProgif} alt="loading..." />
+                            <img src={MallBuddyProgif} alt="loading..."/>
                         </div>
                     </div>
                 </ParallaxLayer>
