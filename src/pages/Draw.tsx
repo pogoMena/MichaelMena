@@ -40,6 +40,18 @@ export const Draw = (props: any) => {
 
                 break;
             }
+            case 'circle': {
+                setDragging(true);
+                let newShape = (
+                    <div
+                        style={{ position: 'absolute', height: 5, width: 5, left: x, top: y, border: '1px solid black', backgroundColor: 'red', borderRadius: '100%' }}
+                        key={shapes.length + 1}
+                    />
+                );
+                setActiveShape(newShape);
+
+                break;
+            }
             default: {
 
             }
@@ -86,6 +98,12 @@ export const Draw = (props: any) => {
                 case 'rectangle': {
                     setActiveShape((prev: React.CSSProperties) =>
                         updateStyle({ height, width, top: finalY, left: finalX, border: '1px solid black', backgroundColor: 'red', position: 'absolute' })
+                    );
+                    break;
+                }
+                case 'circle': {
+                    setActiveShape((prev: React.CSSProperties) =>
+                        updateStyle({ height, width, top: finalY, left: finalX, border: '1px solid black', backgroundColor: 'red', position: 'absolute', borderRadius: '100%' })
                     );
                     break;
                 }
@@ -141,7 +159,10 @@ export const Draw = (props: any) => {
                 break;
             }
             default: {
-                
+                let allShapes = [...shapes, activeShape];
+                setShapes(allShapes);
+                setActiveShape(null);
+                setDragging(false);
                 break;
             }
         }
@@ -175,6 +196,7 @@ export const Draw = (props: any) => {
         <div className="row">
                 <button className="col" onClick={Undo}>Undo</button>
                 <button className="col" onClick={() => setShape('rectangle')}>Rectangle</button>
+                <button className="col" onClick={() => setShape('circle')}>Circle</button>
                 <button className="col" onClick={() => setShape('point')}>Point</button>
             </div>
             <div style={{ width: '100%', height: '100vh', background: 'beige' }} onMouseDown={HandleMouseDown} onMouseUp={HandleMouseUp} onMouseMove={HandleMouseMove}>
