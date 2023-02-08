@@ -47,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-color": "^3.0.6",
     "nodemon": "^2.0.20"
   }
 }

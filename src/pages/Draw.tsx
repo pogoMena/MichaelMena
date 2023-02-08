@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { useState } from 'react';
+import { SketchPicker } from 'react-color';
 import { JsxElement } from 'typescript';
 
 export const Draw = (props: any) => {
     const [shapes, setShapes]: any = useState<JSX.Element[]>([]);
     const [shape, setShape] = useState<string>("point");
+
+    const [showColor, setShowColor] = useState(false);
 
     const [activeShape, setActiveShape] = useState<any>(null)
     const [dragging, setDragging] = useState<boolean>(false);
@@ -119,31 +122,6 @@ export const Draw = (props: any) => {
     }
 
     const HandleMouseUp = (event: any) => {
-        /*
-        var [x, y] = newClickCoords(event);
-        console.log("Up x"+x);
-
-        let width: number =0;
-        let height: number =0;
-        let finalX = downX;
-        let finalY = downY;
-
-        if(x >= downX){
-            width = x-downX;
-
-        }else{
-            width = downX-x;
-            finalX = x;
-        }
-
-        if (y >= downY) {
-            height=y-downY;
-        } else {
-            height=downY-y;
-            finalY=y;
-        }
-*/
-        
         switch (shape) {
             case 'point': {
                 
@@ -166,6 +144,10 @@ export const Draw = (props: any) => {
                 break;
             }
         }
+
+    }
+
+    const ShowColor = () => {
 
     }
 
@@ -193,8 +175,10 @@ export const Draw = (props: any) => {
 
     return (
         <>
+        {showColor && <div className="" style={{ position: 'absolute'}} ><SketchPicker /></div>}
         <div className="row">
                 <button className="col" onClick={Undo}>Undo</button>
+                <button className='col' onClick={() => setShowColor(!showColor)}>Color</button>
                 <button className="col" onClick={() => setShape('rectangle')}>Rectangle</button>
                 <button className="col" onClick={() => setShape('circle')}>Circle</button>
                 <button className="col" onClick={() => setShape('point')}>Point</button>
