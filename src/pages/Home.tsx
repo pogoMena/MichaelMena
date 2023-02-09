@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import styles from '../styles.module.css';
 import MallBuddyProgif from '../images/MallBuddyProgif.gif';
 import spongebobgif from '../images/spongebobgif.gif';
+import SMDA from '../images/SMDA.gif'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button } from 'react-bootstrap';
 import { useState } from 'react';
@@ -71,11 +72,30 @@ export default function Home(props: IAppProps) {
             )
         }
 
+        const SMDAModal = () => {
+            return (
+                <Modal show={showModal} onHide={handleClose} aria-labelledby="contained-modal-title-vcenter"
+                    size="sm"
+                    centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Social Media Monitoring App</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className="row"><Link to='https://github.com/pogoMena/SocialMediaMonitoring'>GitHub repository</Link></div>
+                        <strong>Backend:</strong> NodeJS with express and MySQL DB
+
+                        <br /> <strong>Frontend:</strong> ReactJS with Google API's
+                        <p>This application simulates the sorting of different social media posts based of the severity of the disaster </p></Modal.Body></Modal>
+            )
+        }
+
         switch (modalSelect) {
             case 'draw':
                 return <DrawModal />
             case 'mbp':
                 return <MBPModal />
+            case 'smda':
+                return <SMDAModal />
             default:
                 return <div>well this is quite the conundrum</div>
         }
@@ -91,52 +111,52 @@ export default function Home(props: IAppProps) {
                 </ParallaxLayer>
 
                 <ParallaxLayer offset={0} speed={-2} style={{ ...alignCenter, marginLeft: '29%' }} >
-                    <h1>M</h1>
+                    <div style={{ textAlign: 'center', width: '3%' }} ><h1>M</h1></div>
                 </ParallaxLayer>
                 <ParallaxLayer offset={0} speed={-2.1} style={{ ...alignCenter, marginLeft: '32%' }} >
-                    <h1>I</h1>
+                    <div style={{ textAlign: 'center', width: '3%' }} ><h1>I</h1></div>
                 </ParallaxLayer>
                 <ParallaxLayer offset={0} speed={-2.2} style={{ ...alignCenter, marginLeft: '34%' }} >
-                    <h1>C</h1>
+                    <div style={{ textAlign: 'center', width: '3%' }} ><h1>C</h1></div>
                 </ParallaxLayer>
                 <ParallaxLayer offset={0} speed={-2.3} style={{ ...alignCenter, marginLeft: '37%' }} >
-                    <h1>H</h1>
+                    <div style={{ textAlign: 'center', width: '3%' }} ><h1>H</h1></div>
                 </ParallaxLayer>
                 <ParallaxLayer offset={0} speed={-2.4} style={{ ...alignCenter, marginLeft: '40%' }} >
-                    <h1>A</h1>
+                    <div style={{ textAlign: 'center', width: '3%' }} ><h1>A</h1></div>
                 </ParallaxLayer>
                 <ParallaxLayer offset={0} speed={-2.5} style={{ ...alignCenter, marginLeft: '43%' }} >
-                    <h1>E</h1>
+                    <div style={{ textAlign: 'center', width: '3%' }} ><h1>E</h1></div>
                 </ParallaxLayer>
                 <ParallaxLayer offset={0} speed={-2.6} style={{ ...alignCenter, marginLeft: '46%' }} >
-                    <h1>L</h1>
+                    <div style={{ textAlign: 'center', width: '3%' }} ><h1>L</h1></div>
                 </ParallaxLayer>
                 <ParallaxLayer offset={0} speed={-2.8} style={{ ...alignCenter, marginLeft: '52%' }} >
-                    <h1>M</h1>
+                    <div style={{ textAlign: 'center', width: '3%' }} ><h1>M</h1></div>
                 </ParallaxLayer>
                 <ParallaxLayer offset={0} speed={-2.9} style={{ ...alignCenter, marginLeft: '55%' }} >
-                    <h1>E</h1>
+                    <div style={{ textAlign: 'center', width: '3%' }} ><h1>E</h1></div>
                 </ParallaxLayer>
                 <ParallaxLayer offset={0} speed={-3} style={{ ...alignCenter, marginLeft: '58%' }} >
-                    <h1>N</h1>
+                    <div style={{ textAlign: 'center', width: '3%' }} ><h1>N</h1></div>
                 </ParallaxLayer>
                 <ParallaxLayer offset={0} speed={-3.1} style={{ ...alignCenter, marginLeft: '61%' }} >
-                    <h1>A</h1>
+                    <div style={{ textAlign: 'center', width: '3%' }} ><h1>A</h1></div>
                 </ParallaxLayer>
 
-                <ParallaxLayer sticky={{ start: 1, end: 2 }} style={{ ...alignCenter, justifyContent: 'flex-start', zIndex: -1 }} >
+                <ParallaxLayer sticky={{ start: 1, end: 2.5 }} style={{ ...alignCenter, justifyContent: 'flex-start', zIndex: -1 }} >
                     <div className={`${styles.projectcard} ${styles.sticky}`} >
                         <h1>Projects</h1>
                     </div>
                 </ParallaxLayer>
-                <ParallaxLayer offset={1.2} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end', zIndex: 1, height: '50vh' }} >
+                <ParallaxLayer offset={1.1} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end', zIndex: 1, height: '50vh' }} >
                     <div className={`${styles.card} ${styles.parallax} ${styles.blue}`}>
                         <div className="row">
                             <h1 className='col-10'>
                                 <Link className="link" to='https://visionary-licorice-a0bf3c.netlify.app'>MallBuddy Pro</Link>
                             </h1>
-                            <div className='col-2'>
-                                <Button onClick={() => { setModalSelect('mbp'); setShowModal(true) }}>Info</Button></div>
+                            <div className='col-2 p-0 align-middle'>
+                                <Button className='p-0' onClick={() => { setModalSelect('mbp'); setShowModal(true) }}>Info</Button></div>
                         </div>
                         <div className='row'>
                             <img src={MallBuddyProgif} alt="loading..." />
@@ -144,14 +164,14 @@ export default function Home(props: IAppProps) {
                     </div>
                 </ParallaxLayer>
 
-                <ParallaxLayer offset={1.8} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end', zIndex: 1, height: '50vh' }} >
+                <ParallaxLayer offset={1.5} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end', zIndex: 1, height: '50vh' }} >
                     <div className={`${styles.card} ${styles.parallax} ${styles.blue}`}>
                         <div className="row">
                             <h1 className='col-10'>
                                 <Link className="link" to='/draw'>Drawing App</Link>
                             </h1>
-                            <div className='col-2'>
-                                <Button onClick={() => { setModalSelect('draw'); setShowModal(true) }}>Info</Button>
+                            <div className='col-2 p-0 align-middle'>
+                                <Button className='p-0' onClick={() => { setModalSelect('draw'); setShowModal(true) }}>Info</Button>
                             </div>
                         </div>
                         <div className='row'>
@@ -160,13 +180,25 @@ export default function Home(props: IAppProps) {
                     </div>
                 </ParallaxLayer>
 
-                <ModalHandler />
+                
 
-                <ParallaxLayer offset={2.4} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end', zIndex: 1, height: '50vh' }} >
-                    <div className={`${styles.card} ${styles.parallax} ${styles.blue}`}><h1>And a third</h1></div>
+                <ParallaxLayer offset={1.9} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end', zIndex: 1, height: '50vh' }} >
+                    <div className={`${styles.card} ${styles.parallax} ${styles.blue}`}>
+                        <div className="row">
+                            <h1 className='col-10'>
+                                <Link className="link" to='https://github.com/pogoMena/SocialMediaMonitoring'>Monitoring App</Link>
+                            </h1>
+                            <div className='col-2 p-0 align-middle'>
+                                <Button className='p-0' onClick={() => { setModalSelect('smda'); setShowModal(true) }}>Info</Button>
+                            </div>
+                        </div>
+                        <div className='row'>
+                            <img src={SMDA} alt="loading..." />
+                        </div>
+                    </div>
                 </ParallaxLayer>
 
-
+                <ModalHandler />
                 <ParallaxLayer offset={3} speed={1} style={{ ...alignCenter, justifyContent: 'Center', backgroundColor: '#87BCDE' }}>
                     <h1>
                         Cool things about ol' Mena
