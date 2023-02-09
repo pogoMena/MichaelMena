@@ -124,32 +124,20 @@ export const Draw = (props: any) => {
                 width = Math.sqrt((lengthA ** 2) + (lengthB ** 2));
                 width = Math.round(width);
 
-
-
-
-
-
-
                 if (rotation >= -90 && rotation < 0) {
                     finalX = (finalX - (width / ((180 / Math.abs(rotation))) - 1));
                     finalY = (finalY - (width / ((180 / Math.abs(rotation))) - 1));
                 } else if (rotation >= 0 && rotation < 90) {
-                    finalX = (finalX - (width / ((180 / Math.abs(rotation))) - 1));
-                    finalY = (finalY + (width / ((180 / Math.abs(rotation))) - 1));
-                } else if (rotation >= 90 && rotation < 180) {
-                    finalX = (finalX - (width / ((180 / Math.abs(rotation))) - 1));
-                    //when it is at 90, i need to subtract half of the width from the y
-                    //when at 180, do nothing
-                    console.log((((180 / Math.abs(rotation))) - 1));
-                
-                    finalY = (finalY + (width * (((180 / Math.abs(rotation))) - 1)));
-                    //console.log(finalY);
+                    finalX = (finalX - (width * (rotation / 180)));
+                    finalY = (finalY + (width * (rotation/180)));
+                } else if (rotation >= 90 && rotation <= 180) {
+                    finalX = (finalX - (width * (rotation / 180)));
+                    finalY = (finalY + (width*(0.5 - (rotation - 90) * 0.005)));
 
                 } else if (rotation >= -180 && rotation < -90) {
-                    finalX = (finalX + (width / (180 / Math.abs(rotation))) - 1);
-                    finalY = (finalY - (width / (180 / Math.abs(rotation))) - 1);
+                    finalX = finalX-width+ (width*(0.5 - (Math.abs(rotation) - 90) * 0.005));
+                    finalY = (finalY - (width*(0.5 - (Math.abs(rotation) - 90) * 0.005)));
                 }
-
             } else {
                 if (x >= downX) {
                     width = x - downX;
