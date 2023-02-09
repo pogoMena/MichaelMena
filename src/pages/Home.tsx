@@ -1,9 +1,13 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { Parallax, ParallaxLayer, IParallax } from '@react-spring/parallax';
 import { useRef } from 'react';
 import styles from '../styles.module.css';
 import MallBuddyProgif from '../images/MallBuddyProgif.gif';
+import spongebobgif from '../images/spongebobgif.gif';
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Modal, Button } from 'react-bootstrap';
+import { useState } from 'react';
 
 export interface IAppProps {
 }
@@ -11,6 +15,71 @@ export interface IAppProps {
 export default function Home(props: IAppProps) {
     const parallax = useRef<IParallax>(null!)
     const alignCenter = { display: 'flex', alignItems: 'center' }
+
+    const [showModal, setShowModal] = useState(false);
+    const [modalSelect, setModalSelect] = useState("");
+
+    const ModalHandler = () => {
+        const handleClose = () => setShowModal(false);
+
+        const DrawModal = () => {
+            return (
+                <Modal show={showModal} onHide={handleClose} aria-labelledby="contained-modal-title-vcenter"
+                    centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Draw App</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className="row"><Link to='https://github.com/pogoMena/MichaelMena/blob/main/src/pages/Draw.tsx'>GitHub repository</Link></div>
+                        <p>
+                            Simple drawing application I made using ReactJS
+                            <br />
+                            Rather than using Canvas and built in methods, I made all of the shapes/Designs using classic CSS. If you do some drawing and then inspect elements, you will see what I mean.
+                            <br />
+                            Very fun thought experiment I intend to build on
+                        </p>
+                    </Modal.Body>
+                </Modal>
+            )
+        }
+
+        const MBPModal = () => {
+            return (
+                <Modal show={showModal} onHide={handleClose} aria-labelledby="contained-modal-title-vcenter"
+                    size="lg"
+                    centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>MallBuddy Pro</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className="row"><Link to='https://github.com/pogoMena/MallBuddyPro'>GitHub repository</Link></div>
+                        <p>
+                            <strong>Backend:</strong> NodeJS with express and MySQL DB
+
+                            <br /> <strong>Frontend:</strong> ReactJS with Google API's
+
+                            <br />This application was designed for surveying different stores within a selected shopping mall. The user has the option to log in, make an account, or continue as a guest.
+
+                            <br /><strong>Mall Search Page:</strong>
+
+                            <br />After landing on the mall search page, the Google places API has been configured to only suggest different shopping malls based on what the user has entered, and closeness to current location. There is also an option to go to the users favorite mall, assuming it has already been set. Once a mall has been selected, the user is brough to the Item Search page.
+
+                            <br /><strong>Item Search Page:</strong>
+
+                            <br />The user will be brought to the mall that has been selected in the previous page and there will be a search bar at the top. This bar is used for entering the type of item that the user is shopping for. For example, if the user enters ‘hats’, a google text search API is used to return all of the stores that reference hats in its metadata. When scrolling down, all of the relevant stores are listed based on relevance of the search term. The user has an option to sort stores based on all questions currently on the survey. The user can take surveys for each store in the results, after taking the survey, the order displayed on the item search page will be updated accordingly. </p></Modal.Body>
+                </Modal>
+            )
+        }
+
+        switch (modalSelect) {
+            case 'draw':
+                return <DrawModal />
+            case 'mbp':
+                return <MBPModal />
+            default:
+                return <div>well this is quite the conundrum</div>
+        }
+    }
 
     return (
         <div style={{ width: '100%', height: '100%', background: '#253237' }}>
@@ -55,27 +124,45 @@ export default function Home(props: IAppProps) {
                     <h1>A</h1>
                 </ParallaxLayer>
 
-                <ParallaxLayer sticky={{ start: 1, end: 2 }} style={{ ...alignCenter, justifyContent: 'flex-start', zIndex: -1}} >
+                <ParallaxLayer sticky={{ start: 1, end: 2 }} style={{ ...alignCenter, justifyContent: 'flex-start', zIndex: -1 }} >
                     <div className={`${styles.projectcard} ${styles.sticky}`} >
                         <h1>Projects</h1>
                     </div>
                 </ParallaxLayer>
-                <ParallaxLayer offset={1.2} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end', zIndex: 1 }} >
+                <ParallaxLayer offset={1.2} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end', zIndex: 1, height: '50vh' }} >
                     <div className={`${styles.card} ${styles.parallax} ${styles.blue}`}>
                         <div className="row">
-                            <h1>
-                                <a href='https://visionary-licorice-a0bf3c.netlify.app'>MallBuddy Pro</a>
+                            <h1 className='col-10'>
+                                <Link className="link" to='https://visionary-licorice-a0bf3c.netlify.app'>MallBuddy Pro</Link>
                             </h1>
+                            <div className='col-2'>
+                                <Button onClick={() => { setModalSelect('mbp'); setShowModal(true) }}>Info</Button></div>
                         </div>
                         <div className='row'>
-                            <img src={MallBuddyProgif} alt="loading..."/>
+                            <img src={MallBuddyProgif} alt="loading..." />
                         </div>
                     </div>
                 </ParallaxLayer>
-                <ParallaxLayer offset={1.6} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end' }} >
-                    <div className={`${styles.card} ${styles.parallax} ${styles.blue}`}><h1>And another</h1></div>
+
+                <ParallaxLayer offset={1.8} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end', zIndex: 1, height: '50vh' }} >
+                    <div className={`${styles.card} ${styles.parallax} ${styles.blue}`}>
+                        <div className="row">
+                            <h1 className='col-10'>
+                                <Link className="link" to='/draw'>Drawing App</Link>
+                            </h1>
+                            <div className='col-2'>
+                                <Button onClick={() => { setModalSelect('draw'); setShowModal(true) }}>Info</Button>
+                            </div>
+                        </div>
+                        <div className='row'>
+                            <img src={spongebobgif} alt="loading..." />
+                        </div>
+                    </div>
                 </ParallaxLayer>
-                <ParallaxLayer offset={1.9} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end' }} >
+
+                <ModalHandler />
+
+                <ParallaxLayer offset={2.4} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end', zIndex: 1, height: '50vh' }} >
                     <div className={`${styles.card} ${styles.parallax} ${styles.blue}`}><h1>And a third</h1></div>
                 </ParallaxLayer>
 
@@ -89,4 +176,7 @@ export default function Home(props: IAppProps) {
             </Parallax>
         </div>
     );
+
+
 }
+
