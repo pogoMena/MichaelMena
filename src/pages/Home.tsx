@@ -72,10 +72,10 @@ export default function Home(props: IAppProps) {
                         </div>
                     </div>
                 </ParallaxLayer>
-                <ParallaxLayer offset={1.5} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end' }} >
+                <ParallaxLayer offset={1.6} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end' }} >
                     <div className={`${styles.card} ${styles.parallax} ${styles.blue}`}><h1>And another</h1></div>
                 </ParallaxLayer>
-                <ParallaxLayer offset={1.8} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end' }} >
+                <ParallaxLayer offset={1.9} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end' }} >
                     <div className={`${styles.card} ${styles.parallax} ${styles.blue}`}><h1>And a third</h1></div>
                 </ParallaxLayer>
 

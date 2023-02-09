@@ -1,31 +1,37 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { SketchPicker } from 'react-color';
 import { JsxElement } from 'typescript';
+import { SketchPicker } from 'react-color';
+import { createRoot } from 'react-dom/client';
+import { Stage, Layer, Line, Text } from 'react-konva';
+
 
 export const Draw = (props: any) => {
     const [shapes, setShapes]: any = useState<JSX.Element[]>([]);
     const [shape, setShape] = useState<string>("point");
 
     const [showColor, setShowColor] = useState(false);
-
     const [activeShape, setActiveShape] = useState<any>(null)
     const [dragging, setDragging] = useState<boolean>(false);
-
     const [downX, setDownX] = useState<number>(0);
     //const [upX, setUpX] = useState<number>(0);
 
     const [downY, setDownY] = useState<number>(0);
     //const [upY, setUpY] = useState<number>(0);
 
+    const [currentColor, setCurrentColor] = useState("#fff")
+
+    const handleChangeComplete = (color: any) => {
+        setCurrentColor(color.hex);
+    };
+
 
     const HandleMouseDown = (event: any) => {
-        var [x,y] = newClickCoords(event);
+        var [x, y] = newClickCoords(event);
 
         setDownX(x);
         setDownY(y);
 
-        console.log("down x"+x);
         switch (shape) {
             case 'point': {
                 addPoint(x, y);
@@ -35,7 +41,7 @@ export const Draw = (props: any) => {
                 setDragging(true);
                 let newShape = (
                     <div
-                        style={{ position: 'absolute', height: 5, width: 5, left: x, top: y, border: '1px solid black', backgroundColor: 'red' }}
+                        style={{ position: 'absolute', height: 5, width: 5, left: x, top: y, border: '1px solid black', backgroundColor: currentColor }}
                         key={shapes.length + 1}
                     />
                 );
@@ -47,7 +53,19 @@ export const Draw = (props: any) => {
                 setDragging(true);
                 let newShape = (
                     <div
-                        style={{ position: 'absolute', height: 5, width: 5, left: x, top: y, border: '1px solid black', backgroundColor: 'red', borderRadius: '100%' }}
+                        style={{ position: 'absolute', height: 5, width: 5, left: x, top: y, border: '1px solid black', backgroundColor: currentColor, borderRadius: '100%' }}
+                        key={shapes.length + 1}
+                    />
+                );
+                setActiveShape(newShape);
+
+                break;
+            }
+            case 'line': {
+                setDragging(true);
+                let newShape = (
+                    <div
+                        style={{ position: 'absolute', height: 0, width: 5, left: x, top: y, border: '1px solid black', backgroundColor: currentColor }}
                         key={shapes.length + 1}
                     />
                 );
@@ -61,15 +79,17 @@ export const Draw = (props: any) => {
         }
     }
     const updateStyle = (newStyle: React.CSSProperties) => {
-        setActiveShape({ ...activeShape, props: { ...activeShape.props, style: newStyle } });
+        if (activeShape) {
+            setActiveShape({ ...activeShape, props: { ...activeShape.props, style: newStyle } });
+        }
 
-        console.log(activeShape);
+
     };
 
     const HandleMouseMove = (event: any) => {
-        if(dragging){
+        if (dragging) {
             let thisShape: any = activeShape
-            
+
             var x = event.clientX;
             var y = event.clientY;
 
@@ -78,20 +98,74 @@ export const Draw = (props: any) => {
             let finalX = downX;
             let finalY = downY;
 
-            if (x >= downX) {
-                width = x - downX;
+            let rotation = 0;
+
+            //0 and 180 are fine
+            //90 moves up and to the right when up or down
+
+            if (shape === 'line') {
+                let lengthA = 0;
+                let lengthB = 0;
+                rotation = Math.atan2(y - downY, x - downX) * 180 / Math.PI;
+
+                if (x >= downX) {
+                    lengthA = x - downX;
+                } else {
+                    lengthA = downX - x;
+                    //finalX = x;
+                }
+
+                if (y >= downY) {
+                    lengthB = y - downY;
+                } else {
+                    lengthB = downY - y;
+                    //finalY = y;
+                }
+                width = Math.sqrt((lengthA ** 2) + (lengthB ** 2));
+                width = Math.round(width);
+
+
+
+
+
+
+
+                if (rotation >= -90 && rotation < 0) {
+                    finalX = (finalX - (width / ((180 / Math.abs(rotation))) - 1));
+                    finalY = (finalY - (width / ((180 / Math.abs(rotation))) - 1));
+                } else if (rotation >= 0 && rotation < 90) {
+                    finalX = (finalX - (width / ((180 / Math.abs(rotation))) - 1));
+                    finalY = (finalY + (width / ((180 / Math.abs(rotation))) - 1));
+                } else if (rotation >= 90 && rotation < 180) {
+                    finalX = (finalX - (width / ((180 / Math.abs(rotation))) - 1));
+                    //when it is at 90, i need to subtract half of the width from the y
+                    //when at 180, do nothing
+                    console.log((((180 / Math.abs(rotation))) - 1));
+                
+                    finalY = (finalY + (width * (((180 / Math.abs(rotation))) - 1)));
+                    //console.log(finalY);
+
+                } else if (rotation >= -180 && rotation < -90) {
+                    finalX = (finalX + (width / (180 / Math.abs(rotation))) - 1);
+                    finalY = (finalY - (width / (180 / Math.abs(rotation))) - 1);
+                }
 
             } else {
-                width = downX - x;
-                finalX = x;
+                if (x >= downX) {
+                    width = x - downX;
+                } else {
+                    width = downX - x;
+                    finalX = x;
+                }
+
+                if (rotation) {
+                    height = y - downY;
+                } else {
+                    height = downY - y;
+                    finalY = y;
+                }
             }
 
-            if (y >= downY) {
-                height = y - downY;
-            } else {
-                height = downY - y;
-                finalY = y;
-            }
 
             switch (shape) {
                 case 'point': {
@@ -100,13 +174,20 @@ export const Draw = (props: any) => {
                 }
                 case 'rectangle': {
                     setActiveShape((prev: React.CSSProperties) =>
-                        updateStyle({ height, width, top: finalY, left: finalX, border: '1px solid black', backgroundColor: 'red', position: 'absolute' })
+                        updateStyle({ height, width, top: finalY, left: finalX, border: '1px solid black', backgroundColor: currentColor, position: 'absolute' })
                     );
                     break;
                 }
                 case 'circle': {
                     setActiveShape((prev: React.CSSProperties) =>
-                        updateStyle({ height, width, top: finalY, left: finalX, border: '1px solid black', backgroundColor: 'red', position: 'absolute', borderRadius: '100%' })
+                        updateStyle({ height, width, top: finalY, left: finalX, border: '1px solid black', backgroundColor: currentColor, position: 'absolute', borderRadius: '100%' })
+                    );
+                    break;
+                }
+                case 'line': {
+
+                    setActiveShape((prev: React.CSSProperties) =>
+                        updateStyle({ height: 0, width, top: finalY, left: finalX, border: '1px solid black', backgroundColor: currentColor, position: 'absolute', transform: `rotate(${rotation}deg)` })
                     );
                     break;
                 }
@@ -124,21 +205,13 @@ export const Draw = (props: any) => {
     const HandleMouseUp = (event: any) => {
         switch (shape) {
             case 'point': {
-                
-                break;
-            }
-            case 'rectangle': {
-                
-                let allShapes = [...shapes, activeShape];
-                setShapes(allShapes);
-                setActiveShape(null);
-                setDragging(false);
 
                 break;
             }
             default: {
                 let allShapes = [...shapes, activeShape];
                 setShapes(allShapes);
+                console.log(activeShape)
                 setActiveShape(null);
                 setDragging(false);
                 break;
@@ -147,9 +220,6 @@ export const Draw = (props: any) => {
 
     }
 
-    const ShowColor = () => {
-
-    }
 
     const newClickCoords = (event: any) => {
         var x = event.clientX;
@@ -160,7 +230,7 @@ export const Draw = (props: any) => {
     const addPoint = (x: number, y: number) => {
         let newCircle = (
             <div
-                style={{ position: 'absolute', borderRadius: '100%', height: '5px', width: '5px', left: x, top: y, border: '1px solid black', backgroundColor: 'red' }}
+                style={{ position: 'absolute', borderRadius: '100%', height: '5px', width: '5px', left: x, top: y, border: '1px solid black', backgroundColor: currentColor }}
                 key={shapes.length + 1}
             />
         );
@@ -175,17 +245,23 @@ export const Draw = (props: any) => {
 
     return (
         <>
-        {showColor && <div className="" style={{ position: 'absolute'}} ><SketchPicker /></div>}
-        <div className="row">
+            {showColor && <div className="" style={{ position: 'absolute' }} ><SketchPicker
+                color={currentColor}
+                onChangeComplete={handleChangeComplete}
+            /></div>}
+            <div className="row">
                 <button className="col" onClick={Undo}>Undo</button>
                 <button className='col' onClick={() => setShowColor(!showColor)}>Color</button>
                 <button className="col" onClick={() => setShape('rectangle')}>Rectangle</button>
                 <button className="col" onClick={() => setShape('circle')}>Circle</button>
                 <button className="col" onClick={() => setShape('point')}>Point</button>
+                <button className="col" onClick={() => setShape('line')}>Line</button>
             </div>
-            <div style={{ width: '100%', height: '100vh', background: 'beige' }} onMouseDown={HandleMouseDown} onMouseUp={HandleMouseUp} onMouseMove={HandleMouseMove}>
-                {activeShape}
+            <div style={{ width: '100%', height: '90vh', background: 'beige' }} onMouseDown={HandleMouseDown} onMouseUp={HandleMouseUp} onMouseMove={HandleMouseMove}>
+
+
                 {shapes}
+                {activeShape}
             </div>
         </>
     );
