@@ -146,13 +146,14 @@ export const Draw = (props: any) => {
                     finalX = x;
                 }
 
-                if (rotation) {
+                if (y >= downY) {
                     height = y - downY;
                 } else {
                     height = downY - y;
                     finalY = y;
                 }
             }
+            console.log(finalY)
 
 
             switch (shape) {
