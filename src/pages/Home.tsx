@@ -149,9 +149,11 @@ export default function Home(props: IAppProps) {
                         <h1>Projects</h1>
                     </div>
                 </ParallaxLayer>
-                <ParallaxLayer offset={1.1} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end', zIndex: 1, height: '50vh' }} >
-                    <div className={`${styles.card} ${styles.parallax} ${styles.blue}`}>
-                        <div className="row">
+                <ParallaxLayer offset={1.3} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end', zIndex: 1, height: '50vh' }} >
+                    <div className="align-items-end">
+                        
+                        <div className={`${styles.card} ${styles.parallax} ${styles.blue} float-right`}>
+                        <div className="row ">
                             <h1 className='col-10'>
                                 <Link className="link" to='https://visionary-licorice-a0bf3c.netlify.app'>MallBuddy Pro</Link>
                             </h1>
@@ -162,10 +164,7 @@ export default function Home(props: IAppProps) {
                             <img src={MallBuddyProgif} alt="loading..." />
                         </div>
                     </div>
-                </ParallaxLayer>
-
-                <ParallaxLayer offset={1.5} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end', zIndex: 1, height: '50vh' }} >
-                    <div className={`${styles.card} ${styles.parallax} ${styles.blue}`}>
+                    <div className={`${styles.card} ${styles.parallax} ${styles.blue} float-right`}>
                         <div className="row">
                             <h1 className='col-10'>
                                 <Link className="link" to='/draw'>Drawing App</Link>
@@ -178,12 +177,7 @@ export default function Home(props: IAppProps) {
                             <img src={spongebobgif} alt="loading..." />
                         </div>
                     </div>
-                </ParallaxLayer>
-
-                
-
-                <ParallaxLayer offset={1.9} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end', zIndex: 1, height: '50vh' }} >
-                    <div className={`${styles.card} ${styles.parallax} ${styles.blue}`}>
+                    <div className={`${styles.card} ${styles.parallax} ${styles.blue} float-right`}>
                         <div className="row">
                             <h1 className='col-10'>
                                 <Link className="link" to='https://github.com/pogoMena/SocialMediaMonitoring'>Monitoring App</Link>
@@ -196,6 +190,19 @@ export default function Home(props: IAppProps) {
                             <img src={SMDA} alt="loading..." />
                         </div>
                     </div>
+                    </div>
+                    
+                    
+                </ParallaxLayer>
+
+                <ParallaxLayer offset={1.6} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end', zIndex: 1, height: '50vh' }} >
+                    
+                </ParallaxLayer>
+
+                
+
+                <ParallaxLayer offset={1.9} speed={1} style={{ ...alignCenter, justifyContent: 'flex-end', zIndex: 1, height: '50vh' }} >
+                    
                 </ParallaxLayer>
 
                 <ModalHandler />
