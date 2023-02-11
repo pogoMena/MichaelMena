@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { Parallax, ParallaxLayer, IParallax } from '@react-spring/parallax';
 import { useRef } from 'react';
 import styles from '../styles.module.css';
-//import MallBuddyProgif from '../images/MallBuddyProgif.gif';
-//import spongebobgif from '../images/spongebobgif.gif';
-//import SMDA from '../images/SMDA.gif'
+import MallBuddyProgif from '../images/MallBuddyProgif.gif';
+import spongebobgif from '../images/spongebobgif.gif';
+import SMDA from '../images/SMDA.gif'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button } from 'react-bootstrap';
 import { useState } from 'react';
@@ -159,7 +159,7 @@ export default function Home(props: IAppProps) {
                                 <Button className='p-0' onClick={() => { setModalSelect('mbp'); setShowModal(true) }}>Info</Button></div>
                         </div>
                         <div className='row'>
-                            <img src='https://cataas.com/cat' alt="loading..." />
+                            <img src={MallBuddyProgif} alt="loading..." />
                         </div>
                     </div>
                 </ParallaxLayer>
@@ -175,7 +175,7 @@ export default function Home(props: IAppProps) {
                             </div>
                         </div>
                         <div className='row'>
-                            <img src='https://cataas.com/cat' alt="loading..." />
+                            <img src={spongebobgif} alt="loading..." />
                         </div>
                     </div>
                 </ParallaxLayer>
@@ -193,7 +193,7 @@ export default function Home(props: IAppProps) {
                             </div>
                         </div>
                         <div className='row'>
-                            <img src='https://cataas.com/cat' alt="loading..." />
+                            <img src={SMDA} alt="loading..." />
                         </div>
                     </div>
                 </ParallaxLayer>
