@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Parallax, ParallaxLayer, IParallax } from '@react-spring/parallax';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import styles from '../styles.module.css';
 import MallBuddyProgif from '../images/MallBuddyProgif.gif';
 import spongebobgif from '../images/spongebobgif.gif';
 import SMDA from '../images/SMDA.gif'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button } from 'react-bootstrap';
-import { useState } from 'react';
 
 export interface IAppProps {
 }
