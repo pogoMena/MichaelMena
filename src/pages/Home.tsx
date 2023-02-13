@@ -8,6 +8,7 @@ import spongebobgif from '../images/spongebobgif.gif';
 import SMDA from '../images/SMDA.gif'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button } from 'react-bootstrap';
+import { ImageScroll } from '../components/imageScroll';
 
 export interface IAppProps {
 }
@@ -143,7 +144,7 @@ export default function Home(props: IAppProps) {
                     <div style={{ textAlign: 'center', width: '3%' }} ><h1>A</h1></div>
                 </ParallaxLayer>
 
-                <ParallaxLayer sticky={{ start: 1, end: 3 }} style={{ ...alignCenter, justifyContent: 'flex-start', zIndex: -1 }} >
+                <ParallaxLayer sticky={{ start: 1, end: 2 }} style={{ ...alignCenter, justifyContent: 'flex-start', zIndex: -1 }} >
                     <div className={`${styles.projectcard} ${styles.sticky}`} >
                         <h1>Projects</h1>
                     </div>
@@ -202,6 +203,9 @@ export default function Home(props: IAppProps) {
                     <h1>
                         Cool things about ol' Mena
                     </h1>
+                </ParallaxLayer>
+                <ParallaxLayer offset={3.2} speed={1} style={{ ...alignCenter, justifyContent: 'Center'}}>
+                <ImageScroll />
                 </ParallaxLayer>
 
             </Parallax>

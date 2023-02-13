@@ -36,7 +36,21 @@
 .link:hover {
    color: #00F
 }
-
+.imgScroll {
+    height: auto;
+}
+.imgblock {
+    display: inline-block;
+    width: 60vh;
+    height: 100%;
+    height:auto;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+.imgblock img {
+    width: 100%;
+    height: auto;
+}
 
 .card {
   display: flex;
